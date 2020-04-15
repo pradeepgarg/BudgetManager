@@ -1,7 +1,4 @@
 from rest_framework import serializers
-<<<<<<< HEAD
-from .models import 
-=======
 from .models import MonthlyBudget, Transaction, CustomCategory
 from budget_user.models import BudgetUser
 
@@ -20,4 +17,3 @@ class UserSerializer(serializers.ModelSerializer):
         model = BudgetUser
         fields = ('username', 'email')
 
->>>>>>> a475736da96c936451c0657c4985b403b5ecd91b
