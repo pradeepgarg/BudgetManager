@@ -10,10 +10,21 @@ class TransactionSerializer(serializers.ModelSerializer):
         fields = ('amount', 'type', 'category','description', 'is_recurring','user')
         
 
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = BudgetUser
         fields = ('username', 'email')
+
+
+class MonthlyBudgetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MonthlyBudget
+        fields = ('user', 'amount')
+
+
+class CustomCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomCategory
+        fields = ('user', 'name')
+
 
