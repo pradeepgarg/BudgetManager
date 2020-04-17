@@ -10,8 +10,6 @@ class TransactionSerializer(serializers.ModelSerializer):
         fields = ('amount', 'type', 'category','description', 'is_recurring','user')
         
 
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = BudgetUser
