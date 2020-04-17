@@ -15,3 +15,16 @@ class UserSerializer(serializers.ModelSerializer):
         model = BudgetUser
         fields = ('username', 'email')
 
+
+class MonthlyBudgetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MonthlyBudget
+        fields = ('user', 'amount')
+
+
+class CustomCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomCategory
+        fields = ('user', 'name')
+
+
