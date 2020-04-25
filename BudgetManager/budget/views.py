@@ -1,28 +1,42 @@
-from django.shortcuts import render
-from .models import Transaction, MonthlyBudget, CustomCategory
-from .serializers import TransactionSerializer, UserSerializer, CustomCategorySerializer, MonthlyBudgetSerializer
-from rest_framework import generics, viewsets
+from rest_framework import viewsets
+from rest_framework.mixins import (
+    ListModelMixin,
+    RetrieveModelMixin,
+    CreateModelMixin,
+)
 
 
-# Create your views here.
-class ListTransaction(generics.ListAPIView):
-    queryset = Transaction.objects.all()
+from .models import Transaction
+
+from .serializers import (
+    TransactionSerializer,
+    UserSerializer,
+    MonthlyBudgetSerializer,
+)
+
+
+class TransactionViewset(
+    viewsets.GenericViewSet,
+    ListModelMixin,
+    CreateModelMixin,
+    RetrieveModelMixin,
+):
     serializer_class = TransactionSerializer
 
-
-class TransactionViewsets(viewsets.ModelViewSet):
-    #queryset = Transaction.objects.all()
-    serializer_class = TransactionSerializer
     def get_queryset(self):
-        """
-        This view should return transactions for the currently authenticated user.
-        """
-        user = self.request.user
-        return Transaction.objects.filter(user_id=user) 
-    
+        return Transaction.objects.filter(user=self.request.user)
 
-class UserViewsets(viewsets.ModelViewSet):
+
+class UserViewset(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = UserSerializer
 
 
+class MonthlyBudgetViewset(
+    viewsets.GenericViewSet,
+    ListModelMixin, CreateModelMixin, RetrieveModelMixin
+):
+    serializer_class = MonthlyBudgetSerializer
+
+    def get_queryset(self):
+        return Transaction.objects.filter(user=self.request.user)

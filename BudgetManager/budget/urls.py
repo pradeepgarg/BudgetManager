@@ -1,11 +1,18 @@
-from django.contrib import admin
-from django.urls import path
+from rest_framework import routers
 
-from .views import ListTransaction, TransactionViewsets
+from .views import (
+    TransactionViewset,
+    MonthlyBudgetViewset
+   )
 
-urlpatterns = [
-    path('transactions', TransactionViewsets.as_view({'get': 'list', 'post': 'create'})),
-    path('list', ListTransaction.as_view())
-]
+router = routers.SimpleRouter()
+
+router.register(r'transactions', TransactionViewset, basename='transactions')
+router.register(
+    r'monthly-budgets',
+    MonthlyBudgetViewset,
+    basename='monthly-budgets'
+)
 
 
+urlpatterns = router.urls

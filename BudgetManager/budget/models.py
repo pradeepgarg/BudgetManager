@@ -1,15 +1,16 @@
 from django.db import models
 from budget_user.models import BudgetUser
+from BudgetManager.models import BudgetManagerBaseModel
 
 
-class MonthlyBudget(models.Model):
+class MonthlyBudget(BudgetManagerBaseModel):
     user = models.ForeignKey(
         BudgetUser, on_delete=models.CASCADE, related_name='monthly_budgets'
     )
     amount = models.DecimalField(max_digits=10, decimal_places=2)
 
 
-class Transaction(models.Model):
+class Transaction(BudgetManagerBaseModel):
     CATEGORIES = (
         ('S', 'Salary'),
         ('P', 'Personal'),
@@ -32,7 +33,7 @@ class Transaction(models.Model):
     is_recurring = models.BooleanField()
 
 
-class CustomCategory(models.Model):
+class CustomCategory(BudgetManagerBaseModel):
     user = models.ForeignKey(
         BudgetUser, on_delete=models.CASCADE, related_name='custom_categories'
     )
